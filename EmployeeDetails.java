@@ -140,25 +140,21 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		first.setPreferredSize(new Dimension(17, 17));
 		first.addActionListener(this);
 		first.setToolTipText("Display first Record");
-
 		navigationPanel.add(previous = new JButton(new ImageIcon(new ImageIcon("previous.png").getImage()
 				.getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
 		previous.setPreferredSize(new Dimension(17, 17));
 		previous.addActionListener(this);
 		previous.setToolTipText("Display next Record");
-
 		navigationPanel.add(next = new JButton(new ImageIcon(
 				new ImageIcon("next.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
 		next.setPreferredSize(new Dimension(17, 17));
 		next.addActionListener(this);
 		next.setToolTipText("Display previous Record");
-
 		navigationPanel.add(last = new JButton(new ImageIcon(
 				new ImageIcon("last.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
 		last.setPreferredSize(new Dimension(17, 17));
 		last.addActionListener(this);
 		last.setToolTipText("Display last Record");
-
 		return navigationPanel;
 	}
 
@@ -379,8 +375,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			else if (searchBySurnameField.getText().trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
 				found = true;
 				displayRecords(currentEmployee);
-			}
-			else {
+			} else {
 				nextRecord();
 				while (!firstSurname.trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
 					if (searchBySurnameField.getText().trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
@@ -410,15 +405,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}
 
 	private Employee getChangedDetails() {
-		boolean fullTime = false;
-		Employee theEmployee;
-		if (((String) Objects.requireNonNull(fullTimeCombo.getSelectedItem())).equalsIgnoreCase("Yes"))
-			fullTime = true;
-		theEmployee = new Employee(Integer.parseInt(idField.getText()), ppsField.getText().toUpperCase(),
+		boolean fullTime = (((String) Objects.requireNonNull(fullTimeCombo.getSelectedItem())).equalsIgnoreCase("Yes"));
+		return new Employee(Integer.parseInt(idField.getText()), ppsField.getText().toUpperCase(),
 				surnameField.getText().toUpperCase(), firstNameField.getText().toUpperCase(),
 				Objects.requireNonNull(genderCombo.getSelectedItem()).toString().charAt(0), Objects.requireNonNull(departmentCombo.getSelectedItem()).toString(),
 				Double.parseDouble(salaryField.getText()), fullTime);
-		return theEmployee;
 	}
 
 	public void addRecord(Employee newEmployee) {
