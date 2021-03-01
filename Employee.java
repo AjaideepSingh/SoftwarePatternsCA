@@ -1,34 +1,12 @@
-/*
- * 
- * This is the definition of the Employee object
- * 
- * */
-
-public class Employee{
+public class Employee {
 	private int employeeId;
-	private String pps;
-	private String surname;
-	private String firstName;
+	private String pps, surname, firstName, department;
 	private char gender;
-	private String department;
 	private double salary;
 	private boolean fullTime;
 
-	// Create Employee with no details
-	public Employee() {
-		this.employeeId = 0;
-		this.pps = "";
-		this.surname = "";
-		this.firstName = "";
-		this.gender = '\0';
-		this.department = "";
-		this.salary = 0;
-		this.fullTime = false;
-	}//end Employee with no details
-
-	// Create Employee with details
 	public Employee(int employeeId, String pps, String surname, String firstName, char gender, String department, double salary,
-			boolean fullTime) {
+					boolean fullTime) {
 		this.employeeId = employeeId;
 		this.pps = pps;
 		this.surname = surname;
@@ -37,9 +15,8 @@ public class Employee{
 		this.department = department;
 		this.salary = salary;
 		this.fullTime = fullTime;
-	}// end Employee with details
+	}
 
-	// Getter methods
 	public int getEmployeeId() {
 		return this.employeeId;
 	}
@@ -72,11 +49,10 @@ public class Employee{
 		return this.fullTime;
 	}
 
-	// Setter methods
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
-	
+
 	public void setPps(String pps) {
 		this.pps = pps;
 	}
@@ -105,7 +81,6 @@ public class Employee{
 		this.fullTime = fullTime;
 	}
 
-	// Display Employee details
 	public String toString() {
 		String bool = "";
 		if (fullTime)
@@ -116,5 +91,5 @@ public class Employee{
 		return "Employee ID: " + this.employeeId + "\nPPS Number: " + this.pps + "\nSurname: " + this.surname
 				+ "\nFirst Name: " + this.firstName + "\nGender: " + this.gender + "\nDepartment: " + this.department + "\nSalary: " + this.salary
 				+ "\nFull Time: " + bool;
-	}// end toString
-}// end class Employee
+	}
+}
