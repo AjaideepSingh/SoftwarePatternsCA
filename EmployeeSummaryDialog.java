@@ -20,7 +20,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 	Vector<Object> allEmployees;
-	JButton back;
+	private JButton back;
 	
 	public EmployeeSummaryDialog(Vector<Object> allEmployees) {
 		setTitle("Employee Summary");
@@ -32,42 +32,34 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		setSize(850, 500);
 		setLocation(350, 250);
 		setVisible(true);
-
 	}
 
 	public Container summaryPane() {
 		JPanel summaryDialog = new JPanel(new MigLayout());
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JTable employeeTable;
-		DefaultTableModel tableModel;
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-		Vector<String> header = new Vector<String>();
+		Vector<String> header = new Vector<>();
 		String[] headerName = { "ID", "PPS Number", "Surname", "First Name", "Gender", "Department", "Salary",
 				"Full Time" };
 		int[] colWidth = { 15, 100, 120, 120, 50, 120, 80, 80 };
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		leftRenderer.setHorizontalAlignment(JLabel.LEFT);
-		for (int i = 0; i < headerName.length; i++) {
-			header.addElement(headerName[i]);
+		for (String s : headerName) {
+			header.addElement(s);
 		}
-		tableModel = new DefaultTableModel(allEmployees.size(), header.size()) {
+		DefaultTableModel tableModel = new DefaultTableModel(allEmployees.size(), header.size()) {
 			public Class getColumnClass(int c) {
-				switch (c) {
-				case 0:
-					return Integer.class;
-				case 4:
-					return Character.class;
-				case 6:
-					return Double.class;
-				case 7:
-					return Boolean.class;
-				default:
-					return String.class;
-				}
+				return switch (c) {
+					case 0 -> Integer.class;
+					case 4 -> Character.class;
+					case 6 -> Double.class;
+					case 7 -> Boolean.class;
+					default -> String.class;
+				};
 			}
 		};
-
 		employeeTable = new JTable(tableModel);
 		for (int i = 0; i < employeeTable.getColumnCount(); i++) {
 			employeeTable.getColumn(headerName[i]).setMinWidth(colWidth[i]);
@@ -85,7 +77,6 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		summaryDialog.add(buttonPanel,"growx, pushx, wrap");
 		summaryDialog.add(scrollPane,"growx, pushx, wrap");
 		scrollPane.setBorder(BorderFactory.createTitledBorder("Employee Details"));
-		
 		return summaryDialog;
 	}
 
@@ -101,11 +92,10 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
 				int row, int column) {
-
 			Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 			 JLabel label = (JLabel) c;
 			 label.setHorizontalAlignment(JLabel.RIGHT);
-			value = format.format((Number) value);
+			value = format.format(value);
 
 			return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		}

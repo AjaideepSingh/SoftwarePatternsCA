@@ -51,13 +51,13 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		empDetails.add(new JLabel("First Name:"), "growx, pushx");
 		empDetails.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
 		empDetails.add(new JLabel("Gender:"), "growx, pushx");
-		empDetails.add(genderCombo = new JComboBox<String>(this.parent.gender), "growx, pushx, wrap");
+		empDetails.add(genderCombo = new JComboBox<>(this.parent.gender), "growx, pushx, wrap");
 		empDetails.add(new JLabel("Department:"), "growx, pushx");
-		empDetails.add(departmentCombo = new JComboBox<String>(this.parent.department), "growx, pushx, wrap");
+		empDetails.add(departmentCombo = new JComboBox<>(this.parent.department), "growx, pushx, wrap");
 		empDetails.add(new JLabel("Salary:"), "growx, pushx");
 		empDetails.add(salaryField = new JTextField(20), "growx, pushx, wrap");
 		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
-		empDetails.add(fullTimeCombo = new JComboBox<String>(this.parent.fullTime), "growx, pushx, wrap");
+		empDetails.add(fullTimeCombo = new JComboBox<>(this.parent.fullTime), "growx, pushx, wrap");
 		buttonPanel.add(save = new JButton("Save"));
 		save.addActionListener(this);
 		save.requestFocus();

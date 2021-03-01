@@ -16,8 +16,8 @@ import javax.swing.border.EtchedBorder;
 
 public class SearchByIdDialog extends JDialog implements ActionListener {
 	EmployeeDetails parent;
-	JButton search, cancel;
-	JTextField searchField;
+	private JButton search, cancel;
+	private JTextField searchField;
 
 	public SearchByIdDialog(EmployeeDetails parent) {
 		setTitle("Search by Surname");

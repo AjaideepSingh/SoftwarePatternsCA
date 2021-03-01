@@ -25,7 +25,8 @@ public class RandomAccessEmployeeRecord extends Employee {
    }
 
    private String readName(RandomAccessFile file) throws IOException {
-      char name[] = new char[20], temp;
+      char[] name = new char[20];
+      char temp;
       for (int count = 0; count < name.length; count++) {
          temp = file.readChar();
          name[count] = temp;
@@ -46,7 +47,7 @@ public class RandomAccessEmployeeRecord extends Employee {
 
    private void writeName(RandomAccessFile file, String name)
            throws IOException {
-      StringBuffer buffer = null;
+      StringBuffer buffer;
       if (name != null)
          buffer = new StringBuffer(name);
       else

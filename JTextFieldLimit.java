@@ -4,7 +4,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
 class JTextFieldLimit extends PlainDocument {
-  private int limit;
+  private final int limit;
 
   JTextFieldLimit(int limit) {
     super();

@@ -8,10 +8,8 @@ public class RandomFile {
 
 	public void createFile(String fileName) {
 		RandomAccessFile file = null;
-
 		try {
 			file = new RandomAccessFile(fileName, "rw");
-
 		} catch (IOException ioException) {
 			JOptionPane.showMessageDialog(null, "Error processing file!");
 			System.exit(1);
@@ -45,14 +43,12 @@ public class RandomFile {
 	}
 
 	public long addRecords(Employee employeeToAdd) {
-		Employee newEmployee = employeeToAdd;
 		long currentRecordStart = 0;
 		RandomAccessEmployeeRecord record;
-
 		try {
-			record = new RandomAccessEmployeeRecord(newEmployee.getEmployeeId(), newEmployee.getPps(),
-					newEmployee.getSurname(), newEmployee.getFirstName(), newEmployee.getGender(),
-					newEmployee.getDepartment(), newEmployee.getSalary(), newEmployee.getFullTime());
+			record = new RandomAccessEmployeeRecord(employeeToAdd.getEmployeeId(), employeeToAdd.getPps(),
+					employeeToAdd.getSurname(), employeeToAdd.getFirstName(), employeeToAdd.getGender(),
+					employeeToAdd.getDepartment(), employeeToAdd.getSalary(), employeeToAdd.getFullTime());
 			output.seek(output.length());
 			record.write(output);
 			currentRecordStart = output.length();
@@ -64,14 +60,12 @@ public class RandomFile {
 	}
 
 	public void changeRecords(Employee newDetails, long byteToStart) {
-		long currentRecordStart = byteToStart;
 		RandomAccessEmployeeRecord record;
-		Employee oldDetails = newDetails;
 		try {
-			record = new RandomAccessEmployeeRecord(oldDetails.getEmployeeId(), oldDetails.getPps(),
-					oldDetails.getSurname(), oldDetails.getFirstName(), oldDetails.getGender(),
-					oldDetails.getDepartment(), oldDetails.getSalary(), oldDetails.getFullTime());
-			output.seek(currentRecordStart);
+			record = new RandomAccessEmployeeRecord(newDetails.getEmployeeId(), newDetails.getPps(),
+					newDetails.getSurname(), newDetails.getFirstName(), newDetails.getGender(),
+					newDetails.getDepartment(), newDetails.getSalary(), newDetails.getFullTime());
+			output.seek(byteToStart);
 			record.write(output);
 		}
 		catch (IOException ioException) {
@@ -80,11 +74,10 @@ public class RandomFile {
 	}
 
 	public void deleteRecords(long byteToStart) {
-		long currentRecordStart = byteToStart;
 		RandomAccessEmployeeRecord record;
 		try {
 			record = new RandomAccessEmployeeRecord();
-			output.seek(currentRecordStart);
+			output.seek(byteToStart);
 			record.write(output);
 		}
 		catch (IOException ioException) {
@@ -97,7 +90,7 @@ public class RandomFile {
 			input = new RandomAccessFile(fileName, "r");
 		}
 		catch (IOException ioException) {
-			JOptionPane.showMessageDialog(null, "File is not suported!");
+			JOptionPane.showMessageDialog(null, "File is not supported!");
 		}
 	}
 
@@ -117,7 +110,7 @@ public class RandomFile {
 		try {
 			input.length();
 		}
-		catch (IOException e) {
+		catch (IOException ignored) {
 		}
 		
 		return byteToStart;
@@ -129,7 +122,7 @@ public class RandomFile {
 		try {
 			byteToStart = input.length() - RandomAccessEmployeeRecord.SIZE;
 		}
-		catch (IOException e) {
+		catch (IOException ignored) {
 		}
 		return byteToStart;
 	}
@@ -143,9 +136,7 @@ public class RandomFile {
 			else
 				byteToStart = byteToStart + RandomAccessEmployeeRecord.SIZE;
 		}
-		catch (NumberFormatException e) {
-		}
-		catch (IOException e) {
+		catch (NumberFormatException | IOException ignored) {
 		}
 		return byteToStart;
 	}
@@ -159,22 +150,20 @@ public class RandomFile {
 			else
 				byteToStart = byteToStart - RandomAccessEmployeeRecord.SIZE;
 		}
-		catch (NumberFormatException e) {
-		}
-		catch (IOException e) {
+		catch (NumberFormatException | IOException ignored) {
 		}
 		return byteToStart;
 	}
 
 	public Employee readRecords(long byteToStart) {
-		Employee thisEmp = null;
+		Employee thisEmp;
 		RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord();
 
 		try {
 			input.seek(byteToStart);
 			record.read(input);
 		}
-		catch (IOException e) {
+		catch (IOException ignored) {
 		}
 		thisEmp = record;
 		return thisEmp;
@@ -184,11 +173,10 @@ public class RandomFile {
 	public boolean isPpsExist(String pps, long currentByteStart) {
 		RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord();
 		boolean ppsExist = false;
-		long oldByteStart = currentByteStart;
 		long currentByte = 0;
 		try {
 			while (currentByte != input.length() && !ppsExist) {
-				if (currentByte != oldByteStart) {
+				if (currentByte != currentByteStart) {
 					input.seek(currentByte);
 					record.read(input);
 					if (record.getPps().trim().equalsIgnoreCase(pps)) {
@@ -199,7 +187,7 @@ public class RandomFile {
 				currentByte = currentByte + RandomAccessEmployeeRecord.SIZE;
 			}
 		}
-		catch (IOException e) {
+		catch (IOException ignored) {
 		}
 		return ppsExist;
 	}
@@ -217,7 +205,7 @@ public class RandomFile {
 				currentByte = currentByte + RandomAccessEmployeeRecord.SIZE;
 			}
 		}
-		catch (IOException e) {
+		catch (IOException ignored) {
 		}
 		return someoneToDisplay;
 	}
