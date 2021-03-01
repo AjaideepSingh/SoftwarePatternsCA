@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
 
 public class EmployeeSummaryDialog extends JDialog implements ActionListener {
-	Vector<Object> allEmployees;
+	private final Vector<Object> allEmployees;
 	private JButton back;
 	
 	public EmployeeSummaryDialog(Vector<Object> allEmployees) {
@@ -89,14 +89,12 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 	static class DecimalFormatRenderer extends DefaultTableCellRenderer {
 		 private static final DecimalFormat format = new DecimalFormat(
 		 "\u20ac ###,###,##0.00" );
-
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
 				int row, int column) {
 			Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 			 JLabel label = (JLabel) c;
 			 label.setHorizontalAlignment(JLabel.RIGHT);
 			value = format.format(value);
-
 			return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		}
 	}

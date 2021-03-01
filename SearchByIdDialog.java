@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 public class SearchByIdDialog extends JDialog implements ActionListener {
-	EmployeeDetails parent;
+	private final EmployeeDetails parent;
 	private JButton search, cancel;
 	private JTextField searchField;
 

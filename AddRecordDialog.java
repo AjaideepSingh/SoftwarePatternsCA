@@ -16,10 +16,10 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
 public class AddRecordDialog extends JDialog implements ActionListener {
-	JTextField idField, ppsField, surnameField, firstNameField, salaryField;
-	JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
-	JButton save, cancel;
-	EmployeeDetails parent;
+	private JTextField idField, ppsField, surnameField, firstNameField, salaryField;
+	private JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
+	private JButton save, cancel;
+	private final EmployeeDetails parent;
 
 	public AddRecordDialog(EmployeeDetails parent) {
 		setTitle("Add Record");
@@ -81,16 +81,13 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	}
 
 	public void addRecord() {
-		boolean fullTime = false;
-		Employee theEmployee;
-		if (((String) Objects.requireNonNull(fullTimeCombo.getSelectedItem())).equalsIgnoreCase("Yes"))
-			fullTime = true;
-		theEmployee = new Employee(Integer.parseInt(idField.getText()), ppsField.getText().toUpperCase(), surnameField.getText().toUpperCase(),
+		boolean fullTime = (((String) Objects.requireNonNull(fullTimeCombo.getSelectedItem())).equalsIgnoreCase("Yes"));
+		Employee employee = new Employee(Integer.parseInt(idField.getText()), ppsField.getText().toUpperCase(), surnameField.getText().toUpperCase(),
 				firstNameField.getText().toUpperCase(), Objects.requireNonNull(genderCombo.getSelectedItem()).toString().charAt(0),
 				Objects.requireNonNull(departmentCombo.getSelectedItem()).toString(), Double.parseDouble(salaryField.getText()), fullTime);
-		this.parent.currentEmployee = theEmployee;
-		this.parent.addRecord(theEmployee);
-		this.parent.displayRecords(theEmployee);
+		this.parent.currentEmployee = employee;
+		this.parent.addRecord(employee);
+		this.parent.displayRecords(employee);
 	}
 
 	public boolean checkInput() {

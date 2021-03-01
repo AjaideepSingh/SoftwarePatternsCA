@@ -44,9 +44,8 @@ public class RandomFile {
 
 	public long addRecords(Employee employeeToAdd) {
 		long currentRecordStart = 0;
-		RandomAccessEmployeeRecord record;
 		try {
-			record = new RandomAccessEmployeeRecord(employeeToAdd.getEmployeeId(), employeeToAdd.getPps(),
+			RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord(employeeToAdd.getEmployeeId(), employeeToAdd.getPps(),
 					employeeToAdd.getSurname(), employeeToAdd.getFirstName(), employeeToAdd.getGender(),
 					employeeToAdd.getDepartment(), employeeToAdd.getSalary(), employeeToAdd.getFullTime());
 			output.seek(output.length());
@@ -60,9 +59,8 @@ public class RandomFile {
 	}
 
 	public void changeRecords(Employee newDetails, long byteToStart) {
-		RandomAccessEmployeeRecord record;
 		try {
-			record = new RandomAccessEmployeeRecord(newDetails.getEmployeeId(), newDetails.getPps(),
+			RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord(newDetails.getEmployeeId(), newDetails.getPps(),
 					newDetails.getSurname(), newDetails.getFirstName(), newDetails.getGender(),
 					newDetails.getDepartment(), newDetails.getSalary(), newDetails.getFullTime());
 			output.seek(byteToStart);
@@ -74,9 +72,8 @@ public class RandomFile {
 	}
 
 	public void deleteRecords(long byteToStart) {
-		RandomAccessEmployeeRecord record;
 		try {
-			record = new RandomAccessEmployeeRecord();
+			RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord();
 			output.seek(byteToStart);
 			record.write(output);
 		}
@@ -118,7 +115,6 @@ public class RandomFile {
 
 	public long getLast() {
 		long byteToStart = 0;
-
 		try {
 			byteToStart = input.length() - RandomAccessEmployeeRecord.SIZE;
 		}
@@ -134,7 +130,7 @@ public class RandomFile {
 			if (byteToStart + RandomAccessEmployeeRecord.SIZE == input.length())
 				byteToStart = 0;
 			else
-				byteToStart = byteToStart + RandomAccessEmployeeRecord.SIZE;
+				byteToStart += RandomAccessEmployeeRecord.SIZE;
 		}
 		catch (NumberFormatException | IOException ignored) {
 		}
@@ -148,7 +144,7 @@ public class RandomFile {
 			if (byteToStart == 0)
 				byteToStart = input.length() - RandomAccessEmployeeRecord.SIZE;
 			else
-				byteToStart = byteToStart - RandomAccessEmployeeRecord.SIZE;
+				byteToStart -= RandomAccessEmployeeRecord.SIZE;
 		}
 		catch (NumberFormatException | IOException ignored) {
 		}
@@ -158,7 +154,6 @@ public class RandomFile {
 	public Employee readRecords(long byteToStart) {
 		Employee thisEmp;
 		RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord();
-
 		try {
 			input.seek(byteToStart);
 			record.read(input);
@@ -184,7 +179,7 @@ public class RandomFile {
 						JOptionPane.showMessageDialog(null, "PPS number already exist!");
 					}
 				}
-				currentByte = currentByte + RandomAccessEmployeeRecord.SIZE;
+				currentByte += RandomAccessEmployeeRecord.SIZE;
 			}
 		}
 		catch (IOException ignored) {
@@ -202,7 +197,7 @@ public class RandomFile {
 				record.read(input);
 				if (record.getEmployeeId() > 0)
 					someoneToDisplay = true;
-				currentByte = currentByte + RandomAccessEmployeeRecord.SIZE;
+				currentByte += RandomAccessEmployeeRecord.SIZE;
 			}
 		}
 		catch (IOException ignored) {

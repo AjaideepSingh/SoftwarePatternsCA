@@ -12,7 +12,6 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Vector;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
@@ -33,7 +32,6 @@ import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import net.miginfocom.swing.MigLayout;
 
 public class EmployeeDetails extends JFrame implements ActionListener, ItemListener, DocumentListener, WindowListener {
@@ -53,7 +51,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	private JTextField idField, ppsField, surnameField, firstNameField, salaryField;
 	private static final EmployeeDetails frame = new EmployeeDetails();
 	Font font1 = new Font("SansSerif", Font.BOLD, 16);
-	String generatedFileName;
+	private String generatedFileName;
 	Employee currentEmployee;
 	JTextField searchByIdField, searchBySurnameField;
 	String[] gender = { "", "M", "F" };
@@ -243,7 +241,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		boolean found = false;
 		searchByIdField.setText("");
 		searchBySurnameField.setText("");
-
 		if (thisEmployee == null) {
 		} else if (thisEmployee.getEmployeeId() == 0) {
 		} else {
@@ -523,12 +520,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}
 
 	private boolean checkFileName(File fileName) {
-		boolean checkFile = false;
-		int length = fileName.toString().length();
-		if (fileName.toString().charAt(length - 4) == '.' && fileName.toString().charAt(length - 3) == 'd'
-				&& fileName.toString().charAt(length - 2) == 'a' && fileName.toString().charAt(length - 1) == 't')
-			checkFile = true;
-		return checkFile;
+		return fileName.toString().charAt(fileName.toString().length() - 4) == '.' && fileName.toString().charAt(fileName.toString().length() - 3) == 'd'
+				&& fileName.toString().charAt(fileName.toString().length() - 2) == 'a' && fileName.toString().charAt(fileName.toString().length() - 1) == 't';
 	}
 
 	private boolean checkForChanges() {
@@ -633,7 +626,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				saveFile();
 			}
 		}
-
 		int returnVal = fc.showOpenDialog(EmployeeDetails.this);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			newFile = fc.getSelectedFile();
@@ -690,7 +682,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		fc.setFileFilter(datFilter);
 		fc.setApproveButtonText("Save");
 		fc.setSelectedFile(new File(defaultFileName));
-
 		int returnVal = fc.showSaveDialog(EmployeeDetails.this);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			newFile = fc.getSelectedFile();
