@@ -231,36 +231,36 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return empDetails;
 	}
 
-	public void displayRecords(Employee thisEmployee) {
+	public void displayRecords(Employee currentEmployee) {
 		int countGender = 0;
 		int countDep = 0;
 		boolean found = false;
 		searchByIdField.setText("");
 		searchBySurnameField.setText("");
-		if (thisEmployee == null) {
-		} else if (thisEmployee.getEmployeeId() == 0) {
+		if (currentEmployee == null) {
+		} else if (currentEmployee.getEmployeeId() == 0) {
 		} else {
 			while (!found && countGender < gender.length - 1) {
-				if (Character.toString(thisEmployee.getGender()).equalsIgnoreCase(gender[countGender]))
+				if (Character.toString(currentEmployee.getGender()).equalsIgnoreCase(gender[countGender]))
 					found = true;
 				else
 					countGender++;
 			}
 			found = false;
 			while (!found && countDep < department.length - 1) {
-				if (thisEmployee.getDepartment().trim().equalsIgnoreCase(department[countDep]))
+				if (currentEmployee.getDepartment().trim().equalsIgnoreCase(department[countDep]))
 					found = true;
 				else
 					countDep++;
 			}
-			idField.setText(Integer.toString(thisEmployee.getEmployeeId()));
-			ppsField.setText(thisEmployee.getPps().trim());
-			surnameField.setText(thisEmployee.getSurname().trim());
-			firstNameField.setText(thisEmployee.getFirstName());
+			idField.setText(Integer.toString(currentEmployee.getEmployeeId()));
+			ppsField.setText(currentEmployee.getPps().trim());
+			surnameField.setText(currentEmployee.getSurname().trim());
+			firstNameField.setText(currentEmployee.getFirstName());
 			genderCombo.setSelectedIndex(countGender);
 			departmentCombo.setSelectedIndex(countDep);
-			salaryField.setText(format.format(thisEmployee.getSalary()));
-			if (thisEmployee.getFullTime())
+			salaryField.setText(format.format(currentEmployee.getSalary()));
+			if (currentEmployee.getFullTime())
 				fullTimeCombo.setSelectedIndex(1);
 			else
 				fullTimeCombo.setSelectedIndex(2);
@@ -435,7 +435,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}
 
 	private Vector<Object> getAllEmployees() {
-		Vector<Object> allEmployee = new Vector<>();
+		Vector<Object> allEmployees = new Vector<>();
 		Vector<Object> empDetails;
 		long byteStart = currentByteStart;
 		int firstId;
@@ -451,11 +451,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			empDetails.addElement(currentEmployee.getDepartment());
 			empDetails.addElement(currentEmployee.getSalary());
 			empDetails.addElement(currentEmployee.getFullTime());
-			allEmployee.addElement(empDetails);
+			allEmployees.addElement(empDetails);
 			nextRecord();
 		} while (firstId != currentEmployee.getEmployeeId());
 		currentByteStart = byteStart;
-		return allEmployee;
+		return allEmployees;
 	}
 
 	private void editDetails() {
@@ -490,23 +490,23 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		}
 		return someoneToDisplay;
 	}
+
 	public boolean correctPps(String pps, long currentByte) {
 		boolean ppsExist;
 		if (pps.length() == 8 || pps.length() == 9) {
 			if (Character.isDigit(pps.charAt(0)) && Character.isDigit(pps.charAt(1))
-					&& Character.isDigit(pps.charAt(2))	&& Character.isDigit(pps.charAt(3)) 
-					&& Character.isDigit(pps.charAt(4))	&& Character.isDigit(pps.charAt(5)) 
-					&& Character.isDigit(pps.charAt(6))	&& Character.isLetter(pps.charAt(7))
+					&& Character.isDigit(pps.charAt(2)) && Character.isDigit(pps.charAt(3))
+					&& Character.isDigit(pps.charAt(4)) && Character.isDigit(pps.charAt(5))
+					&& Character.isDigit(pps.charAt(6)) && Character.isLetter(pps.charAt(7))
 					&& (pps.length() == 8 || Character.isLetter(pps.charAt(8)))) {
 				application.openReadFile(file.getAbsolutePath());
 				ppsExist = application.isPpsExist(pps, currentByte);
 				application.closeReadFile();
-			}
-			else
+			} else
 				ppsExist = true;
-		}
-		else
+		} else
 			ppsExist = true;
+
 		return ppsExist;
 	}
 
@@ -642,7 +642,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 						application.openWriteFile(file.getAbsolutePath());
 						currentEmployee = getChangedDetails();
 						application.changeRecords(currentEmployee, currentByteStart);
-						application.closeWriteFile();// close file for writing
+						application.closeWriteFile();
 					}
 				}
 			}
@@ -816,7 +816,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		dialog.add(navigationPanel(), "width 150:150:150, wrap");
 		dialog.add(buttonPanel(), "growx, pushx, span 2,wrap");
 		dialog.add(detailsPanel(), "gap top 30, gap left 150, center");
-
 		JScrollPane scrollPane = new JScrollPane(dialog);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		addWindowListener(this);

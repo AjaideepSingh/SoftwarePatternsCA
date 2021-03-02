@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../jar_files/miglayout-core-5.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../tools/jar_files/miglayout-core-5.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../jar_files/miglayout-swing-5.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../tools/jar_files/miglayout-swing-5.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

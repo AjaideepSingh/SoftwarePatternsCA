@@ -45,8 +45,7 @@ public class RandomAccessEmployeeRecord extends Employee {
       file.writeBoolean(getFullTime());
    }
 
-   private void writeName(RandomAccessFile file, String name)
-           throws IOException {
+   private void writeName(RandomAccessFile file, String name) throws IOException {
       StringBuffer buffer;
       if (name != null)
          buffer = new StringBuffer(name);

@@ -92,7 +92,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 
 	public boolean checkInput() {
 		boolean valid = true;
-		if (ppsField.getText().equals("")) {
+		if (ppsField.getText().isEmpty()) {
 			ppsField.setBackground(new Color(255, 150, 150));
 			valid = false;
 		}
